@@ -1,6 +1,6 @@
 import argparse
-import detector
 import cv2
+from landmark_detector import *
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -14,10 +14,10 @@ def get_args():
 
 def get_detector_backend(detector):
     if detector == 0:
-        from detector_dlib import DlibDetector
+        from face_detector_dlib import DlibDetector
         detector = DlibDetector()
     elif detector == 1:
-        from detector_cascade import CascadeDetector
+        from face_detector_cascade import CascadeDetector
         detector = CascadeDetector()
     else:
         raise ValueError("unknown detector value: " + detector)
@@ -32,6 +32,8 @@ def main():
 
     detectorBackend = get_detector_backend(detectorMode)
     detectorBackend.load()
+    predictorBackend = LandmarkDetector()
+    predictorBackend.load()
 
     img1 = cv2.imread(image1)
     img2 = cv2.imread(image2)
@@ -49,10 +51,13 @@ def main():
     cv2.rectangle(img1, (detected_face1[0], detected_face1[1]), (detected_face1[2], detected_face1[3]), (0, 255, 0), 2)
     cv2.rectangle(img2, (detected_face2[0], detected_face2[1]), (detected_face2[2], detected_face2[3]), (0, 255, 0), 2)
 
-    cv2.imshow("Detected face", img1)
-    cv2.waitKey(0)
-    cv2.imshow("Detected face", img2)
-    cv2.waitKey(0)
+    # cv2.imshow("Detected face", img1)
+    # cv2.waitKey(0)
+    # cv2.imshow("Detected face", img2)
+    # cv2.waitKey(0)
+
+    landmarks1 = predictorBackend.predict(detected_face1, img1)
+    landmarks2 = predictorBackend.predict(detected_face2, img2)
 
 if __name__ == "__main__":
     main()
