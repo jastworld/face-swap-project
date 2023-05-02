@@ -1,5 +1,5 @@
 import detector
-import cv2
+import cv2, dlib
 
 class CascadeDetector(detector.Detector):
     def __init__(self):
@@ -13,6 +13,7 @@ class CascadeDetector(detector.Detector):
         grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         faces = self.detector.detectMultiScale(grayscale, 1.1, 9)
         rect = faces[0]
-        rect_coord = [rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3]]
-        return rect_coord
+        faces_rect = dlib.rectangle(rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3])
+
+        return faces_rect
     

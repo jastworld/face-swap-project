@@ -48,8 +48,8 @@ def main():
     detected_face1 = detectorBackend.predict(img1)
     detected_face2 = detectorBackend.predict(img2)
 
-    cv2.rectangle(img1, (detected_face1[0], detected_face1[1]), (detected_face1[2], detected_face1[3]), (0, 255, 0), 2)
-    cv2.rectangle(img2, (detected_face2[0], detected_face2[1]), (detected_face2[2], detected_face2[3]), (0, 255, 0), 2)
+    # cv2.rectangle(img1, (detected_face1[0], detected_face1[1]), (detected_face1[2], detected_face1[3]), (0, 255, 0), 2)
+    # cv2.rectangle(img2, (detected_face2[0], detected_face2[1]), (detected_face2[2], detected_face2[3]), (0, 255, 0), 2)
 
     # cv2.imshow("Detected face", img1)
     # cv2.waitKey(0)

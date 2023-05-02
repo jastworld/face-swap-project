@@ -10,9 +10,7 @@ class DlibDetector(detector.Detector):
 
     # detects face from input image and returns a detected region in a rectangle format [left, top, right, bottom]
     def predict(self, image):
-        faces = self.detector(image)
-        rect = faces[0]
-        rect_coords = [rect.left(), rect.top(), rect.right(), rect.bottom()]
-  
-        return rect_coords
+        faces_rect = self.detector(image)
+
+        return faces_rect[0]
     
