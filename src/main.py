@@ -1,6 +1,7 @@
 import argparse
 import cv2
 from landmark_detector import *
+from face_swapper import *
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -58,6 +59,15 @@ def main():
 
     landmarks1 = predictorBackend.predict(detected_face1, img1)
     landmarks2 = predictorBackend.predict(detected_face2, img2)
+
+    face_swapper = FaceSwapper(detectorBackend, predictorBackend)
+    swapped, tgt, new_face = face_swapper.swap(img1, img2)
+
+    # cv2.imshow("Swapped face", swapped)
+    # cv2.waitKey(0)
+
+
+
 
 if __name__ == "__main__":
     main()
