@@ -7,7 +7,7 @@ class SimpleMerge:
 
     def merge(self, new_face, target):
         #--------------- define object_mask  -------------------
-        mask_in = np.zeros(new_face.shape)
+        mask_in = np.zeros(new_face[:, :, 0].shape)
         for b in np.arange(3):
             mask_in += new_face[:, :, b]
         mask_in[mask_in != 0] = 1
