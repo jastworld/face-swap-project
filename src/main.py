@@ -61,12 +61,7 @@ def main():
     landmarks2 = predictorBackend.predict(detected_face2, img2)
 
     face_swapper = FaceSwapper(detectorBackend, predictorBackend)
-    swapped, tgt, new_face = face_swapper.swap(img1, img2)
-
-    # cv2.imshow("Swapped face", swapped)
-    # cv2.waitKey(0)
-
-
+    tgt, new_face = face_swapper.swap(img1, img2)
 
 
 if __name__ == "__main__":

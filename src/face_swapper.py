@@ -102,40 +102,25 @@ class FaceSwapper:
     
     return triangle_indexes
 
-
-  def swap(self, src, tgt):
-    tgt_gray = cv2.cvtColor(tgt, cv2.COLOR_BGR2GRAY)
+  def __get_new_face(self, src, tgt, src_landmarks, tgt_landmarks):
+    triangle_indexes = self._getTriangles(src_landmarks)
     src_gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
-
-    tgt_landmarks = self.__get_landmark_pts(tgt)
-    src_landmarks = self.__get_landmark_pts(src)
-
-    new_src = self.__align_src(src, src_landmarks, tgt_landmarks)
-    new_src_gray = cv2.cvtColor(new_src, cv2.COLOR_BGR2GRAY)
-    new_src_landmarks = self.__get_landmark_pts(new_src)
-    
-    # TODO: CLEAN THIS UP
-    triangle_indexes = self._getTriangles(new_src_landmarks)
+    tgt_gray = cv2.cvtColor(tgt, cv2.COLOR_BGR2GRAY)
     
     convexhull2 = cv2.convexHull(tgt_landmarks)
-    lines_space_mask = np.zeros_like(new_src_gray)
+    lines_space_mask = np.zeros_like(src_gray)
     new_face = np.zeros(tgt.shape, np.uint8)
-    
-    # Triangulation of both faces
     for triangle_index in triangle_indexes:
-        
         # Triangulation of the first face
-        tr1_pt1 = tuple(new_src_landmarks[triangle_index[0]])
-        tr1_pt2 = tuple(new_src_landmarks[triangle_index[1]])
-        tr1_pt3 = tuple(new_src_landmarks[triangle_index[2]])
+        tr1_pt1 = tuple(src_landmarks[triangle_index[0]])
+        tr1_pt2 = tuple(src_landmarks[triangle_index[1]])
+        tr1_pt3 = tuple(src_landmarks[triangle_index[2]])
         triangle1 = np.array([tr1_pt1, tr1_pt2, tr1_pt3], np.int32)
-
 
         rect1 = cv2.boundingRect(triangle1)
         (x, y, w, h) = rect1
-        cropped_triangle = new_src[y: y + h, x: x + w]
+        cropped_triangle = src[y: y + h, x: x + w]
         cropped_tr1_mask = np.zeros((h, w), np.uint8)
-
 
         points = np.array([[tr1_pt1[0] - x, tr1_pt1[1] - y],
                           [tr1_pt2[0] - x, tr1_pt2[1] - y],
@@ -143,11 +128,10 @@ class FaceSwapper:
 
         cv2.fillConvexPoly(cropped_tr1_mask, points, 255)
 
-        # Lines space
         cv2.line(lines_space_mask, tr1_pt1, tr1_pt2, 255)
         cv2.line(lines_space_mask, tr1_pt2, tr1_pt3, 255)
         cv2.line(lines_space_mask, tr1_pt1, tr1_pt3, 255)
-        lines_space = cv2.bitwise_and(new_src, new_src, mask=lines_space_mask)
+        lines_space = cv2.bitwise_and(src, src, mask=lines_space_mask)
 
         # Triangulation of second face
         tr2_pt1 = tgt_landmarks[triangle_index[0]]
@@ -174,7 +158,7 @@ class FaceSwapper:
         warped_triangle = cv2.warpAffine(cropped_triangle, M, (w, h))
         warped_triangle = cv2.bitwise_and(warped_triangle, warped_triangle, mask=cropped_tr2_mask)
 
-        # Reconstructing destination face
+        # Reconstruct face
         img2_new_face_rect_area = new_face[y: y + h, x: x + w]
         img2_new_face_rect_area_gray = cv2.cvtColor(img2_new_face_rect_area, cv2.COLOR_BGR2GRAY)
         _, mask_triangles_designed = cv2.threshold(img2_new_face_rect_area_gray, 1, 255, cv2.THRESH_BINARY_INV)
@@ -183,17 +167,17 @@ class FaceSwapper:
         img2_new_face_rect_area = cv2.add(img2_new_face_rect_area, warped_triangle)
         new_face[y: y + h, x: x + w] = img2_new_face_rect_area
 
-    # Face swapped (putting 1st face into 2nd face)
-    img2_face_mask = np.zeros_like(tgt_gray)
-    img2_head_mask = cv2.fillConvexPoly(img2_face_mask, convexhull2, 255)
-    img2_face_mask = cv2.bitwise_not(img2_head_mask)
+    return new_face
 
-    tgt_no_face = cv2.bitwise_and(tgt, tgt, mask=img2_face_mask)
+  def swap(self, src, tgt):
+    tgt_gray = cv2.cvtColor(tgt, cv2.COLOR_BGR2GRAY)
 
-    result = cv2.add(tgt_no_face, new_face)
+    tgt_landmarks = self.__get_landmark_pts(tgt)
+    src_landmarks = self.__get_landmark_pts(src)
 
-    (x, y, w, h) = cv2.boundingRect(convexhull2)
-    center_face2 = (int((x + x + w) / 2), int((y + y + h) / 2))
+    src = self.__align_src(src, src_landmarks, tgt_landmarks)
+    src_landmarks = self.__get_landmark_pts(src)
 
-    seamlessclone = cv2.seamlessClone(result, tgt, img2_head_mask, center_face2, cv2.NORMAL_CLONE)
-    return seamlessclone, tgt, new_face
+    new_face = self.__get_new_face(src, tgt, src_landmarks, tgt_landmarks)
+
+    return tgt, new_face
