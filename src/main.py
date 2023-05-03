@@ -2,6 +2,8 @@ import argparse
 import cv2
 from landmark_detector import *
 from face_swapper import *
+from poisson_blending import *
+from simple_merging import *
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -62,6 +64,11 @@ def main():
 
     face_swapper = FaceSwapper(detectorBackend, predictorBackend)
     tgt, new_face = face_swapper.swap(img1, img2)
+
+    poisson_blend = PoissonBlend()
+    poisson_blend_image = poisson_blend.blend(new_face, tgt)
+    simple_merge = SimpleMerge()
+    simple_merge_image = simple_merge.merge(new_face, tgt)
 
 
 if __name__ == "__main__":
