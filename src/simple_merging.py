@@ -3,7 +3,7 @@ import numpy as np
 
 class SimpleMerge:
     def __init__(self):
-        print('simple merging two images')
+        print('simple merge two images')
 
     def merge(self, new_face, target):
         #--------------- define object_mask  -------------------

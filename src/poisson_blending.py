@@ -6,7 +6,7 @@ import scipy.sparse.linalg
 
 class PoissonBlend:
     def __init__(self):
-        print('poisson blending two images')
+        print('poisson blend two images')
 
     def blend (self, new_face, target):
         #--------------- define object_mask  -------------------
