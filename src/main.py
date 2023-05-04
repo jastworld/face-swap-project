@@ -26,6 +26,7 @@ def get_detector_backend(detector):
         raise ValueError("unknown detector value: " + detector)
     return detector
 
+
 def main():
     args = get_args()
     detectorMode = args.detector
@@ -69,6 +70,14 @@ def main():
     poisson_blend_image = poisson_blend.blend(new_face, tgt)
     simple_merge = SimpleMerge()
     simple_merge_image = simple_merge.merge(new_face, tgt)
+
+    im_blend_out = np.uint8(poisson_blend_image * 255)
+    im_out = cv2.cvtColor(im_blend_out, cv2.COLOR_RGB2BGR)
+    cv2.imwrite('Poisson_blend.jpg', im_out)
+
+    im_merge_out = np.uint8(simple_merge_image * 255)
+    im_out2 = cv2.cvtColor(im_merge_out, cv2.COLOR_RGB2BGR)
+    cv2.imwrite('Simple_Merge.jpg', im_out2)
 
 
 if __name__ == "__main__":

@@ -18,8 +18,8 @@ class PoissonBlend:
         [ys, xs] = np.nonzero(mask_in)
         yx_list = list(zip(ys, xs))
 
-        mask_temp = mask_in
-        new_mask = mask_in
+        mask_temp = mask_in.copy()
+        new_mask = mask_in.copy()
         for index in yx_list:
             y = index[0]
             x = index[1]
@@ -31,7 +31,7 @@ class PoissonBlend:
         new_face = cv2.cvtColor(new_face, cv2.COLOR_BGR2RGB).astype('double') / 255.0
         target = cv2.cvtColor(target, cv2.COLOR_BGR2RGB).astype('double') / 255.0
 
-        for channel in np.arrange(3):
+        for channel in np.arange(3):
             object_img = new_face[:, :, channel].copy()
             bg_img = target[:, :, channel].copy()
 
