@@ -73,11 +73,11 @@ def main():
 
     im_blend_out = np.uint8(poisson_blend_image * 255)
     im_out = cv2.cvtColor(im_blend_out, cv2.COLOR_RGB2BGR)
-    cv2.imwrite('Poisson_blend.jpg', im_out)
+    cv2.imwrite('../image/result/poisson_blend/poisson_blend.jpg', im_out)
 
     im_merge_out = np.uint8(simple_merge_image * 255)
     im_out2 = cv2.cvtColor(im_merge_out, cv2.COLOR_RGB2BGR)
-    cv2.imwrite('Simple_Merge.jpg', im_out2)
+    cv2.imwrite('../image/result/direct_cut/simple_merge.jpg', im_out2)
 
 
 if __name__ == "__main__":
