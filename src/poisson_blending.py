@@ -1,9 +1,3 @@
-import cv2
-import numpy as np
-import scipy as sc
-import scipy.sparse.linalg
-
-
 class PoissonBlend:
     def __init__(self):
         print('poisson blend two images')
