@@ -12,6 +12,8 @@ def get_args():
     parser.add_argument('--image2', type=str, required=True, help='path to second image[required]')
     parser.add_argument('--output1', type=str, required=True, help='path to output image[required]')
     parser.add_argument('--output2', type=str, required=True, help='path to output image[required]')
+    parser.add_argument('--swapper', type=int, required=True, help='swapper mode 0-target warp 1-source warp')
+
     args = parser.parse_args()
 
     return args
@@ -35,6 +37,7 @@ def main():
     image2 = args.image2
     output1 = args.output1
     output2 = args.output2
+    swapperMode = args.swapper
 
     detectorBackend = get_detector_backend(detectorMode)
     detectorBackend.load()
@@ -66,7 +69,7 @@ def main():
     landmarks2 = predictorBackend.predict(detected_face2, img2)
 
     face_swapper = FaceSwapper(detectorBackend, predictorBackend)
-    tgt, new_face = face_swapper.swap(img1, img2)
+    tgt, new_face = face_swapper.swap(img1, img2, swapperMode)
 
     poisson_blend = PoissonBlend()
     poisson_blend_image = poisson_blend.blend(new_face, tgt)
