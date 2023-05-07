@@ -10,7 +10,8 @@ def get_args():
     parser.add_argument('--detector', type=int, required=True, help='detector mode 0-dlib 1-cascade')
     parser.add_argument('--image1', type=str, required=True, help='path to first image[required]')
     parser.add_argument('--image2', type=str, required=True, help='path to second image[required]')
-    parser.add_argument('--output', type=str, required=True, help='path to output image[required]')
+    parser.add_argument('--output1', type=str, required=True, help='path to output image[required]')
+    parser.add_argument('--output2', type=str, required=True, help='path to output image[required]')
     args = parser.parse_args()
 
     return args
@@ -32,7 +33,8 @@ def main():
     detectorMode = args.detector
     image1 = args.image1
     image2 = args.image2
-    output = args.output
+    output1 = args.output1
+    output2 = args.output2
 
     detectorBackend = get_detector_backend(detectorMode)
     detectorBackend.load()
@@ -71,13 +73,13 @@ def main():
     simple_merge = SimpleMerge()
     simple_merge_image = simple_merge.merge(new_face, tgt)
 
-    im_blend_out = np.uint8(poisson_blend_image * 255)
+    im_blend_out = np.uint8(poisson_blend_image)
     im_out = cv2.cvtColor(im_blend_out, cv2.COLOR_RGB2BGR)
-    cv2.imwrite('../image/result/poisson_blend/poisson_blend.jpg', im_out)
+    cv2.imwrite(output1, im_out)
 
-    im_merge_out = np.uint8(simple_merge_image * 255)
+    im_merge_out = np.uint8(simple_merge_image)
     im_out2 = cv2.cvtColor(im_merge_out, cv2.COLOR_RGB2BGR)
-    cv2.imwrite('../image/result/direct_cut/simple_merge.jpg', im_out2)
+    cv2.imwrite(output2, im_out2)
 
 
 if __name__ == "__main__":
