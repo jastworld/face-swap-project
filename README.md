@@ -14,7 +14,7 @@ main.py [-h] --detector DETECTOR --image1 IMAGE1 --image2 IMAGE2 --output1 OUTPU
 **ex)** <br />
 `$pip install -r requirements.txt`
 
-```$ python main.py --detector 0 --image1 ../image/source/img1.jpg --image2 ../image/target/img1.jpg --output1 ../image/result/poisson_blend_target_warp/img1.jpg --output2 ../image/result/direct_cut_target_warp/img1.jpg --swapper 0```
+```$ python src/main.py --detector 0 --image1 image/source/img1.jpg --image2 image/target/img1.jpg --output1 image/result/poisson_blend_target_warp/img1.jpg --output2 image/result/direct_cut_target_warp/img1.jpg --swapper 0```
 
 ## File Structure <br />
 ```bash
@@ -104,10 +104,10 @@ Target Swap Images
 1. Go to ./evaluation folder and modify the directory of files you want to evaluate
 2. Ensure that the images are as follows source/1.jpg + target/1.jpg = result/1.jpg 
 ```
-source_directory = ".\image\source"
-target_directory = ".\image\\target"
-direct_cut_directory = ".\image\\result\direct_cut_source_swap"
-poisson_blend_directory = ".\image\\result\poisson_blend_source_swap"
+source_directory = "./image/source"
+target_directory = "./image/target"
+direct_cut_directory = "./image/result/direct_cut_source_swap"
+poisson_blend_directory = "./image/result/poisson_blend_source_swap"
 ```
 
 `$ python evaluation/evaluation_script.py`
