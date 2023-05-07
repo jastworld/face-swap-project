@@ -41,37 +41,35 @@ def main():
 
     detectorBackend = get_detector_backend(detectorMode)
     detectorBackend.load()
+    print('Detector Loaded')
+    
     predictorBackend = LandmarkDetector()
     predictorBackend.load()
-
-    img1 = cv2.imread(image1)
-    img2 = cv2.imread(image2)
-    
+    print('Predictor Loaded')
+ 
     img1 = cv2.imread(image1)
     if img1 is None:
         raise ValueError("Cannot open image 1 :", image1)
     img2 = cv2.imread(image2)
     if img2 is None:
         raise ValueError("Cannot open image 2 :", image2)
-
-    detected_face1 = detectorBackend.predict(img1)
-    detected_face2 = detectorBackend.predict(img2)
     
-    landmarks1 = predictorBackend.predict(detected_face1, img1)
-    landmarks2 = predictorBackend.predict(detected_face2, img2)
-
     face_swapper = FaceSwapper(detectorBackend, predictorBackend)
     tgt, new_face = face_swapper.swap(img1, img2, swapperMode)
-
+    print('Face Swap Completed')
+    
     poisson_blend = PoissonBlend()
     poisson_blend_image = poisson_blend.blend(new_face, tgt)
+    print('Poisson Blending Done')
+    
     simple_merge = SimpleMerge()
     simple_merge_image = simple_merge.merge(new_face, tgt)
-
+    print('Simple Merge Done')
+    
     im_blend_out = np.uint8(poisson_blend_image)
     im_out = cv2.cvtColor(im_blend_out, cv2.COLOR_RGB2BGR)
     cv2.imwrite(output1, im_out)
-
+    
     im_merge_out = np.uint8(simple_merge_image)
     im_out2 = cv2.cvtColor(im_merge_out, cv2.COLOR_RGB2BGR)
     cv2.imwrite(output2, im_out2)

@@ -1,5 +1,4 @@
 import math
-
 import cv2
 import os
 import numpy as np
@@ -88,10 +87,10 @@ def reshape_images(images):
     return images
 
 if __name__ == "__main__":
-    source_directory = ".\image\source"
-    target_directory = ".\image\\target"
-    direct_cut_directory = ".\image\\result\direct_cut_source_swap"
-    poisson_blend_directory = ".\image\\result\poisson_blend_source_swap"
+    source_directory = "./image/source"
+    target_directory = "./image/target"
+    direct_cut_directory = "./image/result/direct_cut_source_swap"
+    poisson_blend_directory = "./image/result/poisson_blend_source_swap"
     source_images = get_images_path(source_directory)
     target_images = get_images_path(target_directory)
 
@@ -100,7 +99,6 @@ if __name__ == "__main__":
     print(direct_cut_images)
 
     N = len(target_images)
-    print(N, len(direct_cut_images), len(poisson_blend_images))
     assert N == len(direct_cut_images) == len(poisson_blend_images)
     evaluation = {
         "Images": [],
@@ -112,7 +110,9 @@ if __name__ == "__main__":
         "Poisson Blend MSE": [],
     }
     for i in range(N):
-        if target_images[i].split("\\")[-1] == direct_cut_images[i].split("\\")[-1] ==  poisson_blend_images[i].split("\\")[-1]:
+        if target_images[i].split("\\")[-1] == direct_cut_images[i].split("\\")[-1] == poisson_blend_images[i].split("\\")[-1]:
+            pass
+        elif target_images[i].split("/")[-1] == direct_cut_images[i].split("/")[-1] == poisson_blend_images[i].split("/")[-1]:
             pass
         else:
             continue

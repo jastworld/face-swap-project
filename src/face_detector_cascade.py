@@ -6,7 +6,7 @@ class CascadeDetector(detector.Detector):
         super(CascadeDetector, self).__init__() 
 
     def load (self):
-        self.detector = cv2.CascadeClassifier('../data/haarcascade_frontalface_default.xml')
+        self.detector = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 
     # detects face from input image and returns a detected region in a rectangle format [left, top, right, bottom]
     def predict(self, image):
