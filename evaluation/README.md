@@ -74,3 +74,4 @@ target_directory = ".\image\\target"
 direct_cut_directory = ".\image\\result\direct_cut_source_swap"
 poisson_blend_directory = ".\image\\result\poisson_blend_source_swap"
 ```
+`$ python evaluation/evaluation_script.py`
