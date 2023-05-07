@@ -2,11 +2,11 @@
 
 Usage: main.py [-h] --detector DETECTOR --image1 IMAGE1 --image2 IMAGE2 --output1 OUTPUT1 --output2 OUTPUT2 --swapper SWAPPER
 
-Detector: detector mode (0 - dlib detector / 1 - cascade detector)
-Image1: Source Image file path
-Image2: Target Image file path
-Output1: Poisson Blend output file path
-Output2: Simple merge output file path
+Detector: detector mode (0 - dlib detector / 1 - cascade detector)\
+Image1: Source Image file path\
+Image2: Target Image file path\
+Output1: Poisson Blend output file path\
+Output2: Simple merge output file path\
 Swapper: swapper mode (0-warps the source image to fit target face 1-warps the target image to fit source face)
 
 
