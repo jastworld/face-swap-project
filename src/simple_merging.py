@@ -25,8 +25,8 @@ class SimpleMerge:
 
         # --------------  Simple Merge Two Images  ----------------
         im_merge = np.zeros(target.shape)
-        new_face = cv2.cvtColor(new_face, cv2.COLOR_BGR2RGB).astype('double') / 255.0
-        target = cv2.cvtColor(target, cv2.COLOR_BGR2RGB).astype('double') / 255.0
+        new_face = cv2.cvtColor(new_face, cv2.COLOR_BGR2RGB).astype('double')
+        target = cv2.cvtColor(target, cv2.COLOR_BGR2RGB).astype('double')
 
         for channel in np.arange(3):
             object_img = new_face[:, :, channel].copy()
