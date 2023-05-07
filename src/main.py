@@ -46,10 +46,7 @@ def main():
     predictorBackend = LandmarkDetector()
     predictorBackend.load()
     print('Predictor Loaded')
-    
-    img1 = cv2.imread(image1)
-    img2 = cv2.imread(image2)
-    
+ 
     img1 = cv2.imread(image1)
     if img1 is None:
         raise ValueError("Cannot open image 1 :", image1)
