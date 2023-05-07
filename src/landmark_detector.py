@@ -8,7 +8,7 @@ class LandmarkDetector(detector.Detector):
         super(LandmarkDetector, self).__init__() 
 
     def load (self):
-        self.detector = dlib.shape_predictor("../data/shape_predictor_68_face_landmarks.dat")
+        self.detector = dlib.shape_predictor("data/shape_predictor_68_face_landmarks.dat")
 
     # detects landmarks from face 
     def predict(self, face_img, original_img):
