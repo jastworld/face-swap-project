@@ -1,4 +1,6 @@
 opencv-python
 tabulate
 numpy
-opencv-python
+dlib
+scipy
+scikit-image
