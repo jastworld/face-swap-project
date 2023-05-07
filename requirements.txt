@@ -3,4 +3,3 @@ tabulate
 numpy
 dlib
 scipy
-scikit-image
