@@ -53,14 +53,6 @@ def main():
     img2 = cv2.imread(image2)
     if img2 is None:
         raise ValueError("Cannot open image 2 :", image2)
-
-    detected_face1 = detectorBackend.predict(img1)
-    detected_face2 = detectorBackend.predict(img2)
-    print('Face Detection Completed')
-    
-    landmarks1 = predictorBackend.predict(detected_face1, img1)
-    landmarks2 = predictorBackend.predict(detected_face2, img2)
-    print('Landmark Detection Completed')
     
     face_swapper = FaceSwapper(detectorBackend, predictorBackend)
     tgt, new_face = face_swapper.swap(img1, img2, swapperMode)
