@@ -15,9 +15,10 @@ main.py [-h] --detector DETECTOR --image1 IMAGE1 --image2 IMAGE2 --output1 OUTPU
 `$pip install -r requirements.txt`
 
 Swapper mode 0: <br />
-```$ python3 src/main.py --detector 0 --image1 image/source/img1.jpg --image2 image/target/img1.jpg --output1 image/result/poisson_blend_target_swap/img1.jpg --output2 image/result/direct_cut_target_swap/img1.jpg --swapper 0```
+```$ python3 src/main.py --detector 0 --image1 image/source/img1.jpg --image2 image/target/img1.jpg --output1 image/result/poisson_blend_target_swap/img1.jpg --output2 image/result/direct_cut_target_swap/img1.jpg --swapper 0```<br />
+<br />
 Swapper mode 1: <br />
-```$ python3 src/main.py --detector 0 --image1 image/source/img1.jpg --image2 image/target/img1.jpg --output1 image/result/poisson_blend_source_swap/img1.jpg --output2 image/result/direct_cut_source_swap/img1.jpg --swapper 1```
+```$ python3 src/main.py --detector 0 --image1 image/source/img1.jpg --image2 image/target/img1.jpg --output1 image/result/poisson_blend_source_swap/img1.jpg --output2 image/result/direct_cut_source_swap/img1.jpg --swapper 1```<br />
 
 
 ## File Structure <br />
