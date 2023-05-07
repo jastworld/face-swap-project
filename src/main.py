@@ -63,7 +63,7 @@ def main():
     
     landmarks1 = predictorBackend.predict(detected_face1, img1)
     landmarks2 = predictorBackend.predict(detected_face2, img2)
-    print('Ladmark Detection Completed')
+    print('Landmark Detection Completed')
     
     face_swapper = FaceSwapper(detectorBackend, predictorBackend)
     tgt, new_face = face_swapper.swap(img1, img2, swapperMode)
