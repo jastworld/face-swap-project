@@ -1,5 +1,12 @@
 # face-swap-project
 
+## Pre-requisites
+- Install required libraries \
+`$pip install -r requirements.txt`
+
+- Download the dlib's facial landmark detection model from the below link and place it under data/ folder \
+http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+
 ## Usage<br />
 main.py [-h] --detector DETECTOR --image1 IMAGE1 --image2 IMAGE2 --output1 OUTPUT1 --output2 OUTPUT2 --swapper SWAPPER
 
@@ -12,7 +19,6 @@ main.py [-h] --detector DETECTOR --image1 IMAGE1 --image2 IMAGE2 --output1 OUTPU
 
 
 **ex)** <br />
-`$pip install -r requirements.txt`
 
 Swapper mode 0: <br />
 ```$ python3 src/main.py --detector 0 --image1 image/source/img1.jpg --image2 image/target/img1.jpg --output1 image/result/poisson_blend_target_swap/img1.jpg --output2 image/result/direct_cut_target_swap/img1.jpg --swapper 0```<br />
